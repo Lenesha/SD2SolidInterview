@@ -1,0 +1,2 @@
+rootProject.name = "SD2"
+include ':app'
