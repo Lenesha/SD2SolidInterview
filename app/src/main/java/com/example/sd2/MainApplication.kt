@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.sd2.di.component.AppComponent
 import com.example.sd2.di.component.DaggerAppComponent
 import com.example.sd2.di.module.APIModule
+import com.example.sd2.di.module.ContextModule
 import com.example.sd2.di.repository.APIURL
 
 
@@ -21,7 +22,7 @@ class MainApplication:Application() {
     fun initDaggerComponent():AppComponent{
         mAppComponent =   DaggerAppComponent
             .builder().
-            aPIModule(APIModule(APIURL.BASE_URL))
+            aPIModule(APIModule(APIURL.BASE_URL)).contextModule(ContextModule(this))
             .build()
         return  mAppComponent
 

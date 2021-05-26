@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sd2.MainApplication
 import com.example.sd2.databinding.GridItemUserBinding
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -13,13 +14,11 @@ class GridListAdapter(var context: Context) : RecyclerView.Adapter<GridListAdapt
 
 
     private  var list: List<String> = emptyList<String>()
-//
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val binding: GridItemUserBinding = GridItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-
-        return ViewHolder(binding)
+     return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,7 +38,6 @@ class GridListAdapter(var context: Context) : RecyclerView.Adapter<GridListAdapt
             picasso =    Picasso.Builder(context).downloader(downloader).build()
        }
         fun bind(data: String) {
-
             picasso.load(data).into(binding.image)
 
         }

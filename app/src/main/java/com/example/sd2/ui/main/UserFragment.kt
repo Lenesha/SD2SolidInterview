@@ -1,5 +1,6 @@
 package com.example.sd2.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,15 +11,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.network.viewmodel.CustomViewModel
+import com.example.sd2.MainApplication
 import com.example.sd2.R
 import com.example.sd2.databinding.UserFragmentBinding
-import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 
-class UserFragment : Fragment() {
+class UserFragment() : Fragment() {
     private var _binding: UserFragmentBinding? = null
     private val viewModel: CustomViewModel by activityViewModels()
     private lateinit var pageListAdapter: GridListAdapter
+    private  var picasso:Picasso? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,16 +32,13 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        picasso = MainApplication.mAppComponent.getPicasso()
         setAdapter()
 
-        val downloader = OkHttp3Downloader(context)
-        val picasso = Picasso.Builder(context).downloader(downloader).build()
-
         viewModel.selectedItem.observe(viewLifecycleOwner, Observer { item ->
-
-
             _binding?.userTitle?.text = item.name
-            picasso.load(item.image).into(_binding?.userImage)
+            picasso?.load(item.image)?.into(_binding?.userImage)
 
             val layoutManagerlocal = GridLayoutManager(context, 2)
 
