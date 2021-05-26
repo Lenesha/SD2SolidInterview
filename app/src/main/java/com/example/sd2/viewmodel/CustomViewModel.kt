@@ -14,12 +14,15 @@ import com.example.sd2.di.paging.UsersDataSourceFactory
 import io.reactivex.disposables.CompositeDisposable
 
 
-class RetroViewModel() : ViewModel() {
+class CustomViewModel() : ViewModel() {
 
     private var usersDataSourceFactory: UsersDataSourceFactory
     var userList: LiveData<PagedList<User>>
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
         private val pageSize = 9
+
+    private val mutableSelectedItem = MutableLiveData<User>()
+    val selectedItem: LiveData<User> get() = mutableSelectedItem
 
     init {
 
@@ -38,6 +41,9 @@ class RetroViewModel() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
+    }
+    fun selectItem(item: User) {
+        mutableSelectedItem.value = item
     }
 }
 

@@ -41,12 +41,15 @@ class PageListAdapter()
         }
     }
 
+    var onItemClick: ((User)->Unit) ?= null
 
 
-    class ViewHolder(val binding:ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding:ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: User?) {
             binding.userTitle.text = item?.name
-
+            binding.root.setOnClickListener {
+                item?.let { it1 -> onItemClick?.invoke(it1) }
+            }
         }
 
     }
